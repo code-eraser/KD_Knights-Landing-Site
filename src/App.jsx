@@ -37,7 +37,11 @@ const TIERS = [
       { label: 'Tactics & Tactical Patterns (Pins, Forks, Skewers)', pct: 40, bar: 'bg-secondary' },
       { label: 'Basic Endgames (K+Q, K+R Mates, Pawn Promotion)', pct: 20, bar: 'bg-secondary-fixed-dim' },
     ],
-    
+    checklist: [
+      'Defending unprotected hanging pieces',
+      'Discovered check & clearance motifs',
+      'King + Rook box-method execution',
+    ],
     cta: 'Enroll in Foundations',
   },
   {
@@ -59,6 +63,11 @@ const TIERS = [
       { label: 'Strategy & Positional Play', pct: 30, bar: 'bg-primary-container' },
       { label: 'Endgame Techniques', pct: 20, bar: 'bg-secondary' },
       { label: 'Opening Architecture', pct: 10, bar: 'bg-secondary-fixed-dim' },
+    ],
+    checklist: [
+      'Prophylaxis: What does the opponent want?',
+      'Isolani, Carlsbad & Backward pawn play',
+      'Lucena and Philidor positions drilled',
     ],
     cta: 'Join Intermediate Cohort',
   },
