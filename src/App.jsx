@@ -3,7 +3,7 @@ import { supabase } from './supabase';
 
 const DISCORD_INVITE_URL = 'https://discord.gg/3HtT9KPBZY';
 // Change this one value to switch currency everywhere prices are shown (e.g. 'ETB ', '$', '£').
-const CURRENCY = '$';
+const CURRENCY = 'ETB';
 // Stitch-hosted image URLs can expire — swap for a file in /public (e.g. "/logo.png") before launch.
 const LOGO_URL =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuBnIZZqlRbYW1ZzbaNKCTCr2LbrUPAzqtmuThFPLBERBq-Hx5na0DJHRrfhdUv-zU6OnPhdTmTCh0SBeib-duI1Vfu5JzHBRLaWQ2laYbXf8OuA4jou_kfdj9Zq5mdcgDDy3cNd13Yl36M-EQWLP8aWw8raB7pZxrbpTu3v6Ym70VCU1K0BBoC_3VXkzoXDWoXUrLydhWB97PAhxaunciT3g4g5kM0FdTOGX0SA9Ku-CUXvhyyHPBXw';
