@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { supabase } from './supabase';
 
 const DISCORD_INVITE_URL = 'https://discord.gg/3HtT9KPBZY';
+// Change this one value to switch currency everywhere prices are shown (e.g. 'ETB ', '$', '£').
+const CURRENCY = '$';
 // Stitch-hosted image URLs can expire — swap for a file in /public (e.g. "/logo.png") before launch.
 const LOGO_URL =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuBnIZZqlRbYW1ZzbaNKCTCr2LbrUPAzqtmuThFPLBERBq-Hx5na0DJHRrfhdUv-zU6OnPhdTmTCh0SBeib-duI1Vfu5JzHBRLaWQ2laYbXf8OuA4jou_kfdj9Zq5mdcgDDy3cNd13Yl36M-EQWLP8aWw8raB7pZxrbpTu3v6Ym70VCU1K0BBoC_3VXkzoXDWoXUrLydhWB97PAhxaunciT3g4g5kM0FdTOGX0SA9Ku-CUXvhyyHPBXw';
@@ -37,11 +39,7 @@ const TIERS = [
       { label: 'Tactics & Tactical Patterns (Pins, Forks, Skewers)', pct: 40, bar: 'bg-secondary' },
       { label: 'Basic Endgames (K+Q, K+R Mates, Pawn Promotion)', pct: 20, bar: 'bg-secondary-fixed-dim' },
     ],
-    checklist: [
-      'Defending unprotected hanging pieces',
-      'Discovered check & clearance motifs',
-      'King + Rook box-method execution',
-    ],
+    price: 500,
     cta: 'Enroll in Foundations',
   },
   {
@@ -64,11 +62,7 @@ const TIERS = [
       { label: 'Endgame Techniques', pct: 20, bar: 'bg-secondary' },
       { label: 'Opening Architecture', pct: 10, bar: 'bg-secondary-fixed-dim' },
     ],
-    checklist: [
-      'Prophylaxis: What does the opponent want?',
-      'Isolani, Carlsbad & Backward pawn play',
-      'Lucena and Philidor positions drilled',
-    ],
+    price: 600,
     cta: 'Join Intermediate Cohort',
   },
   {
@@ -95,6 +89,7 @@ const TIERS = [
       ['auto_stories', 'Curated Literature & Study Packs', 'Hand-picked chess classics and master-level problem sets'],
       ['trophy', 'Tournament Prep & Competitive Guidance', 'OTB clock management, round preparation, and psychological resilience'],
     ],
+    price: 700,
     cta: 'Apply for Advanced Mentorship',
   },
 ];
@@ -267,7 +262,13 @@ function TierCard({ tier, onSelect }) {
       </div>
 
       <h3 className="font-headline-md text-headline-md text-primary">{tier.title}</h3>
-      <p className={`font-label-lg text-label-lg mb-4 ${featured ? 'text-primary font-semibold' : 'text-secondary'}`}>{tier.tagline}</p>
+      <p className={`font-label-lg text-label-lg mb-2 ${featured ? 'text-primary font-semibold' : 'text-secondary'}`}>{tier.tagline}</p>
+      <div className="mb-4 pb-4 border-b border-outline-variant/40">
+        <span className="font-headline-lg text-headline-lg text-primary" style={{ fontVariantNumeric: 'tabular-nums' }}>
+          {CURRENCY}{tier.price}
+        </span>
+        <span className="font-label-lg text-label-lg text-on-surface-variant ml-1">/ week</span>
+      </div>
       <p className="font-body-sm text-body-sm text-on-surface-variant mb-6">{tier.blurb}</p>
 
       <div className={`mb-6 p-3 rounded-xl ${featured ? 'bg-secondary-container text-on-secondary-container' : 'bg-secondary-fixed/50 text-on-secondary-fixed'}`}>
@@ -280,8 +281,7 @@ function TierCard({ tier, onSelect }) {
       </div>
 
       {tier.weights && (
-        <>
-          <div className="space-y-4 mb-8">
+        <div className="space-y-4 mb-8">
             <span className="font-label-md text-label-md text-primary block uppercase tracking-wide">Curriculum Weight</span>
             {tier.weights.map((w) => (
               <div key={w.label}>
@@ -294,15 +294,7 @@ function TierCard({ tier, onSelect }) {
                 </div>
               </div>
             ))}
-          </div>
-          <ul className="space-y-2.5 mb-8 text-on-surface-variant font-body-sm text-body-sm mt-auto">
-            {tier.checklist.map((item) => (
-              <li key={item} className="flex items-center gap-2">
-                <Icon name="check_circle" className="text-primary text-[18px]" /> {item}
-              </li>
-            ))}
-          </ul>
-        </>
+        </div>
       )}
 
       {tier.includes && (
@@ -491,7 +483,7 @@ function RegistrationForm({ tier, setTier }) {
     ['beginner', 'Beginner', '100 – 1000 ELO'],
     ['intermediate', 'Intermediate', '1000 – 1800'],
     ['advanced', 'Advanced', '1900+'],
-  ];
+  ].map(([value, label, range]) => [value, label, `${range} · ${CURRENCY}${TIERS.find((t) => t.id === value).price}/wk`]);
 
   return (
     <section id="register" className="w-full py-space-xl lg:py-28 bg-surface-container-low">
